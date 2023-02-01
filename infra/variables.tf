@@ -37,13 +37,13 @@ variable "links_table_name" {
 variable "function_s3_bucket" {
   type        = string
   description = "The name of the S3 bucket where the Lambda function is stored"
-  default     = "cardlink-create-link-function"
+  default     = "cardlink-functions"
 }
 
 variable "create_link_s3_key" {
   type        = string
   description = "The key of the S3 object where the Lambda function is stored"
-  default     = "v0.1.0/bootstrap.zip"
+  default     = "create-link.zip"
 }
 
 variable "api_cognito_authorizer_name" {
