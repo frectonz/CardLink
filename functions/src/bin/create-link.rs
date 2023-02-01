@@ -18,7 +18,7 @@ async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
 
     Ok(Response::builder()
         .status(200)
-        .header("Content-Type", "text/plain")
+        .header("Content-Type", "text/html")
         .body(Body::Text(format!(
             "Identity = {}\n\nBody = {}",
             identity, body
