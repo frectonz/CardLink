@@ -47,3 +47,6 @@ destroy-functions: delete-functions-bucket
 
 setup: setup-terraform setup-functions apply-infra
 destroy: destroy-infra destroy-terraform destroy-functions
+
+test:
+  cd tests; pnpm start

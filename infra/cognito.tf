@@ -13,6 +13,14 @@ resource "aws_cognito_user_pool" "card_link_user_pool" {
       max_length = 2048
     }
   }
+
+  password_policy {
+    minimum_length    = 6
+    require_lowercase = false
+    require_numbers   = false
+    require_symbols   = false
+    require_uppercase = false
+  }
 }
 
 resource "aws_cognito_user_pool_client" "card_link_user_client" {

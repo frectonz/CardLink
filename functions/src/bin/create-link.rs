@@ -9,7 +9,6 @@ struct Link {
     url: String,
 }
 
-// new type pattern wrap `Body` to parse the body as a `Link` type.
 struct LinkBody<'a>(&'a Body);
 
 impl<'a> LinkBody<'a> {
