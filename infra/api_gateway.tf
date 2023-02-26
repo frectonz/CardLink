@@ -16,7 +16,7 @@ resource "aws_api_gateway_method" "link_proxy" {
 
   authorization        = "COGNITO_USER_POOLS"
   authorizer_id        = aws_api_gateway_authorizer.cardlink_api.id
-  authorization_scopes = ["email", "openid", "profile"]
+  authorization_scopes = ["aws.cognito.signin.user.admin"] // ["email", "openid", "profile"]
 }
 
 resource "aws_api_gateway_integration" "create_link" {

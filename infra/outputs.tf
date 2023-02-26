@@ -21,3 +21,7 @@ output "create_link_function_arn" {
 output "api_gateway_url" {
   value = aws_api_gateway_rest_api.cardlink_api.execution_arn
 }
+
+output "api_gateway_id" {
+  value = aws_api_gateway_rest_api.cardlink_api.id
+}

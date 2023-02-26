@@ -3,9 +3,9 @@ dotenv.config();
 
 import {
   SignUpCommand,
+  InitiateAuthCommand,
   ConfirmSignUpCommand,
   CognitoIdentityProviderClient,
-  InitiateAuthCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
@@ -63,6 +63,7 @@ async function login(username: string, password: string) {
   });
   try {
     const data = await cognitoClient.send(command);
+    console.log("User logged in:", data);
     return data.AuthenticationResult;
   } catch (err) {
     console.error("Login Error", err);
@@ -70,9 +71,31 @@ async function login(username: string, password: string) {
 }
 
 async function main() {
-  const token = await register("fraol", "password", "fraol0912@gmail.com").then(
-    () => login("fraol", "password")
+  // const token = await register("fraol", "password", "fraol0912@gmail.com").then(
+  //   () => login("fraol", "password")
+  // );
+  const token = await login("fraol", "password");
+
+  if (!token) {
+    console.error("No token");
+    process.exit(1);
+  }
+
+  const createLinkReq = await fetch(
+    `https://${process.env.API_GATEWAY_ID}.execute-api.us-east-1.amazonaws.com/prod/link`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token.AccessToken}`,
+      },
+      body: JSON.stringify({}),
+    }
   );
+
+  const createLinkRes = await createLinkReq.text();
+
+  console.log("Create Link", createLinkRes);
 
   process.exit(0);
 }
